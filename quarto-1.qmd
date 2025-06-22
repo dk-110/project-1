@@ -2,5 +2,37 @@
 title: "Quarto 1"
 author: "DK"
 format: html
+execute: 
+  echo: false
+  messages: false
+  warnings: false
 ---
+
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(palmerpenguins))
+
+library(tidyverse)
+library(palmerpenguins)
+
+# Clean the data to remove NAs
+penguins_clean <- penguins %>%
+  drop_na(flipper_length_mm, body_mass_g, species)
+
+# Create the plot without messages
+ggplot(penguins_clean, aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
+  geom_point(size = 3, alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", linewidth = 1.2) +
+  labs(
+    title = "Prnguin Flipper Length vs Body Mass",
+    subtitle = "Species comparison from Palmer Station, Antarctica",
+    x = "Flipper Length (mm)",
+    y = "Body Mass (g)",
+    color = "Species"
+  ) +
+  theme_minimal(base_size = 14) +
+  scale_color_brewer(palette = "Dark2")
+```
+
+
 
